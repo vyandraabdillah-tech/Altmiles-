@@ -1,9 +1,20 @@
 const { createClient } = require('@supabase/supabase-js');
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_KEY
-);
+// Validate environment variables
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
+
+if (!supabaseUrl) {
+  console.error('SUPABASE_URL is not defined in environment variables');
+  throw new Error('SUPABASE_URL is required');
+}
+
+if (!supabaseKey) {
+  console.error('SUPABASE_SERVICE_KEY is not defined in environment variables');
+  throw new Error('SUPABASE_SERVICE_KEY is required');
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Client operations
 async function getClientByWaNumber(waNumber) {

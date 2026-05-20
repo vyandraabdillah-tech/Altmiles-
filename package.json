@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "migrate": "node db/migrate.js"
+    "migrate": "node db/migrate.js",
+    "check-env": "node check-env.js"
   },
   "keywords": [
     "whatsapp",

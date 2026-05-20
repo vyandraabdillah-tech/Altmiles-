@@ -7,6 +7,16 @@ const demoRoutes = require('./routes/demo');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Log environment check (without exposing secrets)
+console.log('Environment check:', {
+  hasSupabaseUrl: !!process.env.SUPABASE_URL,
+  hasSupabaseKey: !!process.env.SUPABASE_SERVICE_KEY,
+  hasGeminiKey: !!process.env.GEMINI_API_KEY,
+  hasWhatsAppToken: !!process.env.WHATSAPP_ACCESS_TOKEN,
+  nodeEnv: process.env.NODE_ENV,
+  isVercel: !!process.env.VERCEL
+});
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
