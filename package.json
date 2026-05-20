@@ -8,10 +8,6 @@
     "dev": "nodemon src/index.js",
     "migrate": "node db/migrate.js"
   },
-  "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=9.0.0"
-  },
   "keywords": [
     "whatsapp",
     "ai",

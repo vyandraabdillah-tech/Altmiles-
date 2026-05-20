@@ -35,12 +35,15 @@ app.get('/', (req, res) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Altmiles WhatsApp AI Chatbot running on port ${PORT}`);
-  console.log(`📱 Webhook endpoint: http://localhost:${PORT}/webhook`);
-  console.log(`⚙️  Admin API: http://localhost:${PORT}/api/admin`);
-  console.log(`🎮 Demo mode: http://localhost:${PORT}/api/demo`);
-});
+// Start server (only if not in serverless environment)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Altmiles WhatsApp AI Chatbot running on port ${PORT}`);
+    console.log(`📱 Webhook endpoint: http://localhost:${PORT}/webhook`);
+    console.log(`⚙️  Admin API: http://localhost:${PORT}/api/admin`);
+    console.log(`🎮 Demo mode: http://localhost:${PORT}/api/demo`);
+  });
+}
 
+// Export for Vercel serverless
 module.exports = app;

@@ -201,29 +201,6 @@ curl -X POST http://localhost:3000/api/demo/switch-client \
 5. **If AI inactive**: Message forwarded to admin WhatsApp number
 6. All conversations saved to database
 
-## Deployment
-
-### Deploy to Railway
-
-Lihat panduan lengkap di [DEPLOY.md](DEPLOY.md)
-
-**Quick Steps:**
-1. Login ke https://railway.app
-2. New Project > Deploy from GitHub
-3. Pilih repository ini
-4. Add environment variables (lihat `.env.example`)
-5. Deploy!
-
-Railway akan otomatis:
-- Build aplikasi
-- Install dependencies
-- Start server
-- Provide HTTPS URL
-
-### Environment Variables untuk Railway
-
-Copy semua variables dari `.env.example` dan isi dengan credentials Anda di Railway Dashboard > Variables.
-
 ## License
 
 MIT
