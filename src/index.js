@@ -5,7 +5,6 @@ const adminRoutes = require('./routes/admin');
 const demoRoutes = require('./routes/demo');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // Log environment check (without exposing secrets)
 console.log('Environment check:', {
@@ -46,7 +45,8 @@ app.get('/', (req, res) => {
 });
 
 // Start server (only if not in serverless environment)
-if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
     console.log(`🚀 Altmiles WhatsApp AI Chatbot running on port ${PORT}`);
     console.log(`📱 Webhook endpoint: http://localhost:${PORT}/webhook`);
