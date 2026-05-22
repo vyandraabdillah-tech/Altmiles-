@@ -1,8 +1,7 @@
 node_modules/
 .env
-.env.production
-vercel-env-import.txt
 *.log
 .DS_Store
 dist/
 coverage/
+auth_info_baileys/
