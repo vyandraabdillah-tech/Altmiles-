@@ -10,20 +10,35 @@ router.get('/', (req, res) => {
   const token = req.query['hub.verify_token'];
   const challenge = req.query['hub.challenge'];
 
+  // Debug logging
   console.log('Webhook verification attempt:', {
     mode,
     receivedToken: token,
     expectedToken: process.env.WHATSAPP_VERIFY_TOKEN,
-    challenge
+    hasExpectedToken: !!process.env.WHATSAPP_VERIFY_TOKEN,
+    challenge,
+    allEnvVars: Object.keys(process.env).filter(k => k.includes('WHATSAPP'))
   });
 
-  if (mode === 'subscribe' && token === process.env.WHATSAPP_VERIFY_TOKEN) {
+  // Verify token
+  const verifyToken = process.env.WHATSAPP_VERIFY_TOKEN || '1412'; // Fallback for debugging
+  
+  if (mode === 'subscribe' && token === verifyToken) {
     console.log('✅ Webhook verified successfully');
-    res.status(200).send(challenge);
-  } else {
-    console.log('❌ Webhook verification failed');
-    res.sendStatus(403);
+    return res.status(200).send(challenge);
   }
+  
+  console.log('❌ Webhook verification failed', {
+    modeMatch: mode === 'subscribe',
+    tokenMatch: token === verifyToken,
+    receivedToken: token,
+    expectedToken: verifyToken
+  });
+  
+  res.status(403).json({ 
+    error: 'Forbidden',
+    message: 'Webhook verification failed'
+  });
 });
 
 // Webhook handler (POST)

@@ -20,6 +20,10 @@ console.log('Environment check:', {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Favicon handler (prevent 404 logs)
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('/favicon.png', (req, res) => res.status(204).end());
+
 // Routes
 app.use('/webhook', webhookRoutes);
 app.use('/api/admin', adminRoutes);
@@ -28,6 +32,20 @@ app.use('/api/demo', demoRoutes.router);
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Debug endpoint (remove in production)
+app.get('/debug/env', (req, res) => {
+  res.json({
+    hasSupabaseUrl: !!process.env.SUPABASE_URL,
+    hasSupabaseKey: !!process.env.SUPABASE_SERVICE_KEY,
+    hasGeminiKey: !!process.env.GEMINI_API_KEY,
+    hasWhatsAppToken: !!process.env.WHATSAPP_ACCESS_TOKEN,
+    hasVerifyToken: !!process.env.WHATSAPP_VERIFY_TOKEN,
+    verifyTokenValue: process.env.WHATSAPP_VERIFY_TOKEN ? 'SET' : 'NOT SET',
+    nodeEnv: process.env.NODE_ENV,
+    isVercel: !!process.env.VERCEL
+  });
 });
 
 // Root endpoint

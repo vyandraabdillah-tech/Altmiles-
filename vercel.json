@@ -8,8 +8,15 @@
   ],
   "routes": [
     {
+      "src": "/favicon.(ico|png)",
+      "status": 204
+    },
+    {
       "src": "/(.*)",
       "dest": "src/index.js"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
